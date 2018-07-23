@@ -33,6 +33,9 @@ pipeline {
             }
         }
         stage('Push image') {
+            when {
+                branch 'master'
+            }
             steps {
                 echo 'Push image'
                 script {
