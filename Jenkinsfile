@@ -35,7 +35,7 @@ pipeline {
         }
         stage('Push image') {
             parallel {
-                stage('Latest') {
+                stage('Prod') {
                     agent { label 'docker' }
                     when {
                         branch 'master'
@@ -53,7 +53,7 @@ pipeline {
                 stage('Dev') {
                     agent { label 'docker' }
                     when {
-                        branch 'dev'
+                        branch 'test'
                     }
                     steps {
                         echo 'Push image'
