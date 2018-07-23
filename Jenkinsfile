@@ -7,7 +7,6 @@ pipeline {
     }
     stages {
         stage('Checkout'){
-            agent { label 'docker' }
             steps {
                 checkout scm
             }
@@ -16,7 +15,6 @@ pipeline {
             agent {
                 docker {
                     image "squidfunk/mkdocs-material"
-                    label "docker"
                     args "--entrypoint=''"
                 }
             }
