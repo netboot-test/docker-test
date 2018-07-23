@@ -17,11 +17,10 @@ pipeline {
                 docker {
                     image "squidfunk/mkdocs-material"
                     label "docker"
+                    args "--entrypoint=''"
                 }
             }
             steps {
-                sh 'ls'
-                sh 'ls /docs'
                 sh 'mkdocs build'
             }
         }
