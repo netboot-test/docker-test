@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent { label 'docker' }
     options {
         timeout(time: 10, unit: 'MINUTES')
         timestamps()
