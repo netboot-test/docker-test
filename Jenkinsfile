@@ -1,5 +1,10 @@
 pipeline {
-  agent { label 'DOCKER' image 'node:7-alpine' }
+  agent {
+    docker {
+        image 'maven:3-alpine'
+        label 'DOCKER'
+    }
+  }
   }
   stages {
     stage('Build') {
