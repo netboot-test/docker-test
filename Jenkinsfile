@@ -16,7 +16,6 @@ pipeline {
             agent {
                 docker {
                     image "squidfunk/mkdocs-material"
-                    args '--volume ${PWD}/Book:/docs'
                     label "docker"
                 }
             }
