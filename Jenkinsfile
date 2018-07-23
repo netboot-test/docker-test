@@ -7,6 +7,7 @@ pipeline {
     }
     stages {
         stage('Checkout'){
+            agent { label 'docker' }
             steps {
                 checkout scm
             }
@@ -15,6 +16,7 @@ pipeline {
             agent {
                 docker {
                     image "squidfunk/mkdocs-material"
+                    label "docker"
                     args "--entrypoint=''"
                 }
             }
@@ -23,6 +25,7 @@ pipeline {
             }
         }
         stage('Build image') {
+            agent { label 'docker' }
             steps {
                 echo 'Starting to build docker image'
                 script {
@@ -31,6 +34,7 @@ pipeline {
             }
         }
         stage('Push image') {
+            agent { label 'docker' }
             when {
                 branch 'master'
             }
