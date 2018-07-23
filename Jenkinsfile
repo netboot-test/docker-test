@@ -20,13 +20,9 @@ pipeline {
                     label "docker"
                 }
             }
-            steps('ls') {
+            steps {
                 sh 'ls'
-            }
-            steps('ls2') {
                 sh 'ls /docs'
-            }
-            steps('Build') {
                 sh 'mkdocs build'
             }
         }
