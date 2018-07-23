@@ -26,7 +26,10 @@ pipeline {
         }
         stage('Build image') {
             steps {
-                docker.build("netboot/cookbook:${env.BUILD_ID}")
+                echo 'Starting to build docker image'
+                script {
+                    docker.build("netboot/cookbook:${env.BUILD_ID}")
+                }
             }
         }
     }
