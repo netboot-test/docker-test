@@ -15,7 +15,8 @@ pipeline {
         stage('Build Docs') {
             agent {
                 docker {
-                    image "caladreas/mkdocs-docker-build-container"
+                    image "squidfunk/mkdocs-material"
+                    args '-v $HOME/Book:/docs'
                     label "docker"
                 }
             }
