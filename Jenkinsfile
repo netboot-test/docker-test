@@ -32,15 +32,6 @@ pipeline {
                 }
             }
         }
-        stage ('Run Application') {
-            agent {
-                docker {
-                    image "netboot/cookbook:${env.BUILD_ID}"
-                    label "docker"
-                }
-            }
-
-        }
     }
 
 }
