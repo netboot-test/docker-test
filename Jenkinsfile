@@ -53,7 +53,7 @@ pipeline {
                 stage('Dev') {
                     agent { label 'docker' }
                     when {
-                        branch 'master'
+                        branch 'dev'
                     }
                     steps {
                         echo 'Push image'
