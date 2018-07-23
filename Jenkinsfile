@@ -47,12 +47,5 @@ pipeline {
                 sh 'mkdocs build'
             }
         }
-        stage('Prepare Docker Image'){
-            agent {
-                label 'docker'
-                dockerfile true
-            }
-            steps {
-        }
     }
 }
