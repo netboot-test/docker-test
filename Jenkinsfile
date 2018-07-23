@@ -33,32 +33,34 @@ pipeline {
                 }
             }
         }
-        parallel {
-            stage('Push latest image') {
-                agent { label 'docker' }
-                when {
-                    branch 'master'
-                }
-                steps {
-                    echo 'Push image'
-                    script {
-                        docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
-                            app.push("${env.BUILD_NUMBER}")
-                            app.push("latest")
+        stage('Push image') {
+            parallel {
+                stage('Latest') {
+                    agent { label 'docker' }
+                    when {
+                        branch 'master'
+                    }
+                    steps {
+                        echo 'Push image'
+                        script {
+                            docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
+                                app.push("${env.BUILD_NUMBER}")
+                                app.push("latest")
+                            }
                         }
                     }
                 }
-            }
-            stage('Push dev image') {
-                agent { label 'docker' }
-                when {
-                    branch 'master'
-                }
-                steps {
-                    echo 'Push image'
-                    script {
-                        docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
-                            app.push("dev")
+                stage('Dev') {
+                    agent { label 'docker' }
+                    when {
+                        branch 'master'
+                    }
+                    steps {
+                        echo 'Push image'
+                        script {
+                            docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
+                                app.push("dev")
+                            }
                         }
                     }
                 }
