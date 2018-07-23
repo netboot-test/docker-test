@@ -21,6 +21,12 @@ pipeline {
                 }
             }
             steps {
+                sh 'ls'
+            }
+            steps {
+                sh 'ls /docs'
+            }
+            steps {
                 sh 'mkdocs build'
             }
         }
