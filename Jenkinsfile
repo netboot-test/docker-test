@@ -93,6 +93,7 @@ pipeline {
                 script {
                     sh("docker rmi -f squidfunk/mkdocs-material:latest || :")
                     deleteDir()
+                    cleanWs()
                 }
             }
         }
