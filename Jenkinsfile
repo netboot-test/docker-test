@@ -68,10 +68,12 @@ pipeline {
             }
         }
         stage('Remove local images') {
-            // remove docker images
-            sh("docker rmi -f netboot/cookbook:latest || :")
-            sh("docker rmi -f netboot/cookbook:${env.BUILD_ID} || :")
-            sh("docker rmi -f squidfunk/mkdocs-material || :")
+            steps {
+                // remove docker images
+                sh("docker rmi -f netboot/cookbook:latest || :")
+                sh("docker rmi -f netboot/cookbook:${env.BUILD_ID} || :")
+                sh("docker rmi -f squidfunk/mkdocs-material || :")
+            }
         }
     }
 }
