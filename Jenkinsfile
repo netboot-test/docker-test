@@ -70,7 +70,7 @@ pipeline {
                     steps {
                         script {
                             app = docker.image("netboot/cookbook:latest")
-                            app.run('--name cookbook-prod --label traefik.frontend.rule=Host:cookbook.netboot.fr')
+                            app.run('--name cookbook-prod --network web --label traefik.frontend.rule=Host:cookbook.netboot.fr')
                         }
                     }
                 }
@@ -80,7 +80,7 @@ pipeline {
                     steps {
                         script {
                             app = docker.image("netboot/cookbook:dev")
-                            app.run('--name cookbook-dev --label traefik.frontend.rule=Host:cookbook-dev.netboot.fr')
+                            app.run('--name cookbook-dev --network web --label traefik.frontend.rule=Host:cookbook-dev.netboot.fr')
                         }
                     }
                 }
