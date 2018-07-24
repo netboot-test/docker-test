@@ -70,7 +70,9 @@ pipeline {
         stage('Start image') {
             agent { label 'SRV-DOCKER-PROD' }
             steps {
-                docker.image("netboot/cookbook:${env.BUILD_ID}").run('-p 80:80 --name cookbook')
+                script {
+                    docker.image("netboot/cookbook:${env.BUILD_ID}").run('-p 80:80 --name cookbook')
+                }
             }
         }
     }
