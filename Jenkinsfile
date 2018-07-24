@@ -33,32 +33,33 @@ pipeline {
                 }
             }
         }
-        stages('Push Image') {
-            stage('Prod') {
-                agent { label 'SRV-DOCKER-PROD' }
-                when { branch 'master' }
-                steps {
-                    echo 'Push Image'
-                    script {
-                        docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
-                            app.push("latest")
+        stage('Push Image') {
+            parallel {
+                stage('Prod') {
+                    agent { label 'SRV-DOCKER-PROD' }
+                    when { branch 'master' }
+                    steps {
+                        echo 'Push Image'
+                        script {
+                            docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
+                                app.push("latest")
+                            }
+                        }
+                    }
+                }
+                stage('Dev') {
+                    agent { label 'SRV-DOCKER-PROD' }
+                    when { branch 'test' }
+                    steps {
+                        echo 'Push Image'
+                        script {
+                            docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
+                                app.push("dev")
+                            }
                         }
                     }
                 }
             }
-            stage('Dev') {
-                agent { label 'SRV-DOCKER-PROD' }
-                when { branch 'test' }
-                steps {
-                    echo 'Push Image'
-                    script {
-                        docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
-                            app.push("dev")
-                        }
-                    }
-                }
-            }
-
         }
         stage('Cleanup') {
             agent { label 'SRV-DOCKER-PROD' }
