@@ -24,7 +24,7 @@ pipeline {
                 sh 'mkdocs build'
             }
         }
-        stage('Build image') {
+        stage('Build Image') {
             agent { label 'SRV-DOCKER-PROD' }
             steps {
                 echo 'Starting to build docker image'
@@ -33,13 +33,13 @@ pipeline {
                 }
             }
         }
-        stage('Push image') {
+        stage('Push Image') {
             parallel {
                 stage('Prod') {
                     agent { label 'SRV-DOCKER-PROD' }
                     when { branch 'master' }
                     steps {
-                        echo 'Push image'
+                        echo 'Push Image'
                         script {
                             docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
                                 app.push("latest")
@@ -51,7 +51,7 @@ pipeline {
                     agent { label 'SRV-DOCKER-PROD' }
                     when { branch 'test' }
                     steps {
-                        echo 'Push image'
+                        echo 'Push Image'
                         script {
                             docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
                                 app.push("dev")
