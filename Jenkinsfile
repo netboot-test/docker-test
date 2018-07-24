@@ -17,6 +17,7 @@ pipeline {
                 docker {
                     image "squidfunk/mkdocs-material"
                     label "docker"
+                    args "--entrypoint=''"
                 }
             }
             steps {
@@ -64,14 +65,6 @@ pipeline {
                         }
                     }
                 }
-            }
-        }
-        stage('Remove local images') {
-            steps {
-                // remove docker images
-                sh("docker rmi -f netboot/cookbook:latest || :")
-                sh("docker rmi -f netboot/cookbook:${env.BUILD_ID} || :")
-                sh("docker rmi -f squidfunk/mkdocs-material || :")
             }
         }
     }
