@@ -9,6 +9,7 @@ pipeline {
         stage('Checkout'){
             agent { label 'SRV-DOCKER-PROD' }
             steps {
+                deleteDir()
                 checkout scm
             }
         }
@@ -65,12 +66,6 @@ pipeline {
                     }
                 }
             }
-        }
-    }
-    post {
-        always {
-            echo 'One way or another, I have finished'
-            deleteDir() /* clean up our workspace */
         }
     }
 }
