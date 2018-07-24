@@ -9,7 +9,6 @@ pipeline {
         stage('Checkout'){
             agent { label 'SRV-DOCKER-PROD' }
             steps {
-                deleteDir()
                 checkout scm
             }
         }
@@ -38,9 +37,7 @@ pipeline {
             parallel {
                 stage('Prod') {
                     agent { label 'SRV-DOCKER-PROD' }
-                    when {
-                        branch 'master'
-                    }
+                    when { branch 'master' }
                     steps {
                         echo 'Push image'
                         script {
@@ -53,9 +50,7 @@ pipeline {
                 }
                 stage('Dev') {
                     agent { label 'SRV-DOCKER-PROD' }
-                    when {
-                        branch 'test'
-                    }
+                    when { branch 'test' }
                     steps {
                         echo 'Push image'
                         script {
@@ -67,11 +62,33 @@ pipeline {
                 }
             }
         }
-        stage('Start image') {
+        stage('Push image') {
+            parallel {
+                stage('Prod') {
+                    agent { label 'SRV-DOCKER-PROD' }
+                    steps {
+                        script {
+                            docker.image("netboot/cookbook:latest").run('-p 85:80 --name cookbook-prod')
+                        }
+                    }
+                }
+                stage('Dev') {
+                    agent { label 'SRV-DOCKER-PROD' }
+                    steps {
+                        script {
+                            docker.image("netboot/cookbook:dev").run('-p 80:80 --name cookbook-dev')
+                        }
+                    }
+                }
+            }
+        }
+        stage('Cleanup') {
             agent { label 'SRV-DOCKER-PROD' }
             steps {
                 script {
-                    docker.image("netboot/cookbook:${env.BUILD_ID}").run('-p 80:80 --name cookbook')
+                    sh("docker rmi -f squidfunk/mkdocs-material:latest || :")
+                    sh("docker rmi -f netboot/cookbook:${env.BUILD_ID} || :")
+                    deleteDir()
                 }
             }
         }
