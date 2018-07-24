@@ -9,7 +9,6 @@ pipeline {
         stage('Checkout'){
             agent { label 'SRV-DOCKER-PROD' }
             steps {
-                deleteDir()
                 checkout scm
             }
         }
