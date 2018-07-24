@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'SRV-DOCKER-PROD'}
+    agent { label 'SRV-DOCKER-PROD' }
     options {
         timeout(time: 10, unit: 'MINUTES')
         timestamps()
@@ -16,7 +16,7 @@ pipeline {
             agent {
                 docker {
                     image "squidfunk/mkdocs-material"
-                    label "docker"
+                    label 'SRV-DOCKER-PROD'
                     args "--entrypoint=''"
                 }
             }
@@ -30,14 +30,13 @@ pipeline {
                 echo 'Starting to build docker image'
                 script {
                     app = docker.build("netboot/cookbook:${env.BUILD_ID}")
-                    sh 'ls ./site/'
                 }
             }
         }
         stage('Push image') {
             parallel {
                 stage('Prod') {
-                    agent { label 'docker' }
+                    agent { label 'SRV-DOCKER-PROD' }
                     when {
                         branch 'master'
                     }
@@ -52,7 +51,7 @@ pipeline {
                     }
                 }
                 stage('Dev') {
-                    agent { label 'docker' }
+                    agent { agent { label 'SRV-DOCKER-PROD' } }
                     when {
                         branch 'test'
                     }
@@ -66,6 +65,12 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+    post {
+        always {
+            echo 'One way or another, I have finished'
+            deleteDir() /* clean up our workspace */
         }
     }
 }
