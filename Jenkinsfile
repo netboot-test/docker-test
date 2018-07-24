@@ -51,7 +51,7 @@ pipeline {
                     }
                 }
                 stage('Dev') {
-                    agent { agent { label 'SRV-DOCKER-PROD' } }
+                    agent { label 'SRV-DOCKER-PROD' }
                     when {
                         branch 'test'
                     }
