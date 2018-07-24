@@ -24,10 +24,6 @@ pipeline {
                 sh 'mkdocs build'
             }
         }
-    }
-    stages {
-
-
         stage('Build Image') {
             agent { label 'SRV-DOCKER-PROD' }
             steps {
@@ -37,8 +33,8 @@ pipeline {
                 }
             }
         }
-
-            stage('Push Image Prod') {
+        stages('Push Image') {
+            stage('Prod') {
                 agent { label 'SRV-DOCKER-PROD' }
                 when { branch 'master' }
                 steps {
@@ -50,7 +46,7 @@ pipeline {
                     }
                 }
             }
-            stage('Push Image Dev') {
+            stage('Dev') {
                 agent { label 'SRV-DOCKER-PROD' }
                 when { branch 'test' }
                 steps {
@@ -63,6 +59,7 @@ pipeline {
                 }
             }
 
+        }
         stage('Cleanup') {
             agent { label 'SRV-DOCKER-PROD' }
             steps {
@@ -74,29 +71,31 @@ pipeline {
                 }
             }
         }
-
-            stage('Start image Prod') {
-                agent { label 'SRV-DOCKER-PROD' }
-                when { branch 'master' }
-                steps {
-                    script {
-                        sh('docker stop cookbook-prod || true && docker rm cookbook-prod || true')
-                        app = docker.image("netboot/cookbook:latest")
-                        app.run('--name cookbook-prod --network web --label traefik.frontend.rule=Host:cookbook.netboot.fr')
+        stage('Start image') {
+            parallel {
+                stage('Prod') {
+                    agent { label 'SRV-DOCKER-PROD' }
+                    when { branch 'master' }
+                    steps {
+                        script {
+                            sh('docker stop cookbook-prod || true && docker rm cookbook-prod || true')
+                            app = docker.image("netboot/cookbook:latest")
+                            app.run('--name cookbook-prod --network web --label traefik.frontend.rule=Host:cookbook.netboot.fr')
+                        }
+                    }
+                }
+                stage('Dev') {
+                    agent { label 'SRV-DOCKER-PROD' }
+                    when { branch 'test' }
+                    steps {
+                        script {
+                            sh('docker stop cookbook-dev || true && docker rm cookbook-dev || true')
+                            app = docker.image("netboot/cookbook:dev")
+                            app.run('--name cookbook-dev --network web --label traefik.frontend.rule=Host:cookbook-dev.netboot.fr')
+                        }
                     }
                 }
             }
-            stage('Start image Dev') {
-                agent { label 'SRV-DOCKER-PROD' }
-                when { branch 'test' }
-                steps {
-                    script {
-                        sh('docker stop cookbook-dev || true && docker rm cookbook-dev || true')
-                        app = docker.image("netboot/cookbook:dev")
-                        app.run('--name cookbook-dev --network web --label traefik.frontend.rule=Host:cookbook-dev.netboot.fr')
-                    }
-                }
-            }
-
+        }
     }
 }
