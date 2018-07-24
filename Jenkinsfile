@@ -67,8 +67,6 @@ pipeline {
                 script {
                     sh("docker rmi -f squidfunk/mkdocs-material:latest || :")
                     sh("docker rmi -f netboot/cookbook:${env.BUILD_NUMBER} || :")
-                    sh("docker rmi -f netboot/cookbook:dev || :")
-                    sh("docker rmi -f netboot/cookbook:latest || :")
                     deleteDir()
                     cleanWs()
                 }
