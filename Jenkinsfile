@@ -34,28 +34,26 @@ pipeline {
             }
         }
         stage('Push Image') {
-            parallel {
-                stage('Prod') {
-                    agent { label 'SRV-DOCKER-PROD' }
-                    when { branch 'master' }
-                    steps {
-                        echo 'Push Image'
-                        script {
-                            docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
-                                app.push("latest")
-                            }
+            stage('Prod') {
+                agent { label 'SRV-DOCKER-PROD' }
+                when { branch 'master' }
+                steps {
+                    echo 'Push Image'
+                    script {
+                        docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
+                            app.push("latest")
                         }
                     }
                 }
-                stage('Dev') {
-                    agent { label 'SRV-DOCKER-PROD' }
-                    when { branch 'test' }
-                    steps {
-                        echo 'Push Image'
-                        script {
-                            docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
-                                app.push("dev")
-                            }
+            }
+            stage('Dev') {
+                agent { label 'SRV-DOCKER-PROD' }
+                when { branch 'test' }
+                steps {
+                    echo 'Push Image'
+                    script {
+                        docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
+                            app.push("dev")
                         }
                     }
                 }
@@ -73,27 +71,25 @@ pipeline {
             }
         }
         stage('Start image') {
-            parallel {
-                stage('Prod') {
-                    agent { label 'SRV-DOCKER-PROD' }
-                    when { branch 'master' }
-                    steps {
-                        script {
-                            sh('docker stop cookbook-prod || true && docker rm cookbook-prod || true')
-                            app = docker.image("netboot/cookbook:latest")
-                            app.run('--name cookbook-prod --network web --label traefik.frontend.rule=Host:cookbook.netboot.fr')
-                        }
+            stage('Prod') {
+                agent { label 'SRV-DOCKER-PROD' }
+                when { branch 'master' }
+                steps {
+                    script {
+                        sh('docker stop cookbook-prod || true && docker rm cookbook-prod || true')
+                        app = docker.image("netboot/cookbook:latest")
+                        app.run('--name cookbook-prod --network web --label traefik.frontend.rule=Host:cookbook.netboot.fr')
                     }
                 }
-                stage('Dev') {
-                    agent { label 'SRV-DOCKER-PROD' }
-                    when { branch 'test' }
-                    steps {
-                        script {
-                            sh('docker stop cookbook-dev || true && docker rm cookbook-dev || true')
-                            app = docker.image("netboot/cookbook:dev")
-                            app.run('--name cookbook-dev --network web --label traefik.frontend.rule=Host:cookbook-dev.netboot.fr')
-                        }
+            }
+            stage('Dev') {
+                agent { label 'SRV-DOCKER-PROD' }
+                when { branch 'test' }
+                steps {
+                    script {
+                        sh('docker stop cookbook-dev || true && docker rm cookbook-dev || true')
+                        app = docker.image("netboot/cookbook:dev")
+                        app.run('--name cookbook-dev --network web --label traefik.frontend.rule=Host:cookbook-dev.netboot.fr')
                     }
                 }
             }
