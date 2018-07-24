@@ -42,7 +42,6 @@ pipeline {
                         echo 'Push image'
                         script {
                             docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
-                                app.push("${env.BUILD_NUMBER}")
                                 app.push("latest")
                             }
                         }
@@ -93,7 +92,6 @@ pipeline {
             steps {
                 script {
                     sh("docker rmi -f squidfunk/mkdocs-material:latest || :")
-                    sh("docker rmi -f netboot/cookbook:${env.BUILD_ID} || :")
                     deleteDir()
                 }
             }

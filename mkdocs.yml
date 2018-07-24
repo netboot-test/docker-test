@@ -4,14 +4,14 @@
 site_name: Funky Cookbook
 site_description: 'Le "Funky Cookbook" est une collection de guides.'
 site_author: 'Thomas ILLIET'
-site_url: 'https://cookbook.thomas-illiet.fr/'
-edit_uri: '/thomas-illiet/Cookbook/blob/master/Book/books'
+site_url: 'https://cookbook.neboot.fr'
+edit_uri: 'netboot-fr/Cookbook/blob/master/books'
 
 # ++++++++++++++++++++++++++
 # + Repository
 # ++++++++++++++++++++++++++
-repo_name: 'Thomas-Illiet/Cookbook'
-repo_url: 'https://github.com/thomas-illiet/Cookbook'
+repo_name: 'netboot-fr/Cookbook'
+repo_url: 'https://github.com/netboot-fr/Cookbook'
 
 # ++++++++++++++++++++++++++
 # + Set this to "books" so that we can produce leanpub content
@@ -94,47 +94,3 @@ pages:
     # + Global
     # ++++++++++++++++++++++
     - 'Introduction' : 'index.md'
-    #- 'Les favoris du chef': 'favorite.md'
-    #- 'Essentiel': 'essential.md'
-    - 'Contributeur': 'contributor.md'
-    - 'Support': 'support.md'
-
-    # ++++++++++++++++++++
-    # + Powershell
-    # ++++++++++++++++++++
-    - 'Powershell':
-      - 'Introduction': 'powershell/introduction.md'
-      #- 'Desired State Configuration':
-      #  - '1. Introduction' : 'powershell/desired-state-configuration/introduction.md'
-      #  - '2. Preparation' : 'powershell/desired-state-configuration/preparation.md'
-      - 'Personnaliser votre Shell': 'powershell/customize-console.md'
-      - 'Office 365':
-        - 'GraphAPI': 'powershell/office365/graphapi.md'
-      - 'Fonction / Module':
-        #- 'Office 365':
-          #- 'Get-O365IPAddress': 'powershell/function-module/office365/get-o365ipaddress.md'
-        #- 'Tool':
-          #- 'Garbage-Collector': 'powershell/function-module/tool/garbage-collector.md'
-          #- 'Expand-ShortUrl': 'powershell/function-module/tool/expand-shorturl.md'
-          #- 'New-Sleep': 'powershell/function-module/tool/new-sleep.md'
-          #- 'write-myprogress': 'powershell/function-module/tool/new-sleep.md'
-        - 'Fun':
-          - 'Invoke-FBBombLikes': 'powershell/function-module/fun/invoke-fbbomblikes.md'
-          - 'Invoke-VideoTroll': 'powershell/function-module/fun/invoke-videotroll.md'
-
-    # ++++++++++++++++++++
-    # + Windows
-    # ++++++++++++++++++++
-    - 'Windows':
-      - 'Introduction': 'windows/introduction.md'
-      #- 'Active Roles':
-      - 'Lab':
-        - '1. Introduction' : 'windows/lab/introduction.md'
-        - '1. Routeur': 'windows/lab/router.md'
-        - '2. Active Directory': 'windows/lab/active-directory.md'
-        - '3. Exchange': 'windows/lab/exchange.md'
-        - '4. Pki': 'windows/lab/pki.md'
-      - 'Hyper-V':
-        - '1. Disque de différenciation' : 'windows/hyper-v/differencing-disks.md'
-
-      #- 'Serveur de fichiers':
