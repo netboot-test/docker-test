@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'docker' }
+    agent { label 'SRV-DOCKER-PROD'}
     options {
         timeout(time: 10, unit: 'MINUTES')
         timestamps()
@@ -7,7 +7,7 @@ pipeline {
     }
     stages {
         stage('Checkout'){
-            agent { label 'docker' }
+            agent { label 'SRV-DOCKER-PROD' }
             steps {
                 checkout scm
             }
@@ -25,7 +25,7 @@ pipeline {
             }
         }
         stage('Build image') {
-            agent { label 'docker' }
+            agent { label 'SRV-DOCKER-PROD' }
             steps {
                 echo 'Starting to build docker image'
                 script {
@@ -67,7 +67,7 @@ pipeline {
             }
         }
         stage('Start image') {
-            agent { label 'docker' }
+            agent { label 'SRV-DOCKER-PROD'}
             when {
                 branch 'test'
             }
