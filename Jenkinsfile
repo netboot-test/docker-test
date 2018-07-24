@@ -66,17 +66,21 @@ pipeline {
             parallel {
                 stage('Prod') {
                     agent { label 'SRV-DOCKER-PROD' }
+                    when { branch 'master' }
                     steps {
                         script {
-                            docker.image("netboot/cookbook:latest").run('-p 85:80 --name cookbook-prod')
+                            app = docker.image("netboot/cookbook:latest")
+                            app.run('--name cookbook-prod --label traefik.frontend.rule=Host:cookbook.netboot.fr')
                         }
                     }
                 }
                 stage('Dev') {
                     agent { label 'SRV-DOCKER-PROD' }
+                    when { branch 'test' }
                     steps {
                         script {
-                            docker.image("netboot/cookbook:dev").run('-p 80:80 --name cookbook-dev')
+                            app = docker.image("netboot/cookbook:dev")
+                            app.run('--name cookbook-dev --label traefik.frontend.rule=Host:cookbook-dev.netboot.fr'')
                         }
                     }
                 }
