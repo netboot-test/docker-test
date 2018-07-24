@@ -69,6 +69,7 @@ pipeline {
                     when { branch 'master' }
                     steps {
                         script {
+                            sh('docker stop cookbook-prod || true && docker rm cookbook-prod || true')
                             app = docker.image("netboot/cookbook:latest")
                             app.run('--name cookbook-prod --network web --label traefik.frontend.rule=Host:cookbook.netboot.fr')
                         }
@@ -79,6 +80,7 @@ pipeline {
                     when { branch 'test' }
                     steps {
                         script {
+                            sh('docker stop cookbook-dev || true && docker rm cookbook-dev || true')
                             app = docker.image("netboot/cookbook:dev")
                             app.run('--name cookbook-dev --network web --label traefik.frontend.rule=Host:cookbook-dev.netboot.fr')
                         }
