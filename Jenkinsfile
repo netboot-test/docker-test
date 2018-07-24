@@ -24,6 +24,10 @@ pipeline {
                 sh 'mkdocs build'
             }
         }
+    }
+    stages {
+
+
         stage('Build Image') {
             agent { label 'SRV-DOCKER-PROD' }
             steps {
