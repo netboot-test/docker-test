@@ -33,8 +33,8 @@ pipeline {
                 }
             }
         }
-        stage('Push Image') {
-            stage('Prod') {
+
+            stage('Push Image Prod') {
                 agent { label 'SRV-DOCKER-PROD' }
                 when { branch 'master' }
                 steps {
@@ -46,7 +46,7 @@ pipeline {
                     }
                 }
             }
-            stage('Dev') {
+            stage('Push Image Dev') {
                 agent { label 'SRV-DOCKER-PROD' }
                 when { branch 'test' }
                 steps {
@@ -58,7 +58,7 @@ pipeline {
                     }
                 }
             }
-        }
+
         stage('Cleanup') {
             agent { label 'SRV-DOCKER-PROD' }
             steps {
@@ -70,8 +70,8 @@ pipeline {
                 }
             }
         }
-        stage('Start image') {
-            stage('Prod') {
+
+            stage('Start image Prod') {
                 agent { label 'SRV-DOCKER-PROD' }
                 when { branch 'master' }
                 steps {
@@ -82,7 +82,7 @@ pipeline {
                     }
                 }
             }
-            stage('Dev') {
+            stage('Start image Dev') {
                 agent { label 'SRV-DOCKER-PROD' }
                 when { branch 'test' }
                 steps {
@@ -93,6 +93,6 @@ pipeline {
                     }
                 }
             }
-        }
+
     }
 }
