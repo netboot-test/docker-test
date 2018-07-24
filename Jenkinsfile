@@ -62,7 +62,7 @@ pipeline {
                 }
             }
         }
-        stage('Push image') {
+        stage('Start image') {
             parallel {
                 stage('Prod') {
                     agent { label 'SRV-DOCKER-PROD' }
