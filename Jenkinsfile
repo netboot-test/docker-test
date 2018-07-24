@@ -9,6 +9,7 @@ pipeline {
         stage('Checkout'){
             agent { label 'SRV-DOCKER-PROD' }
             steps {
+                deleteDir()
                 checkout scm
             }
         }
@@ -66,20 +67,11 @@ pipeline {
                 }
             }
         }
-        stage('Start image') {
-            agent { label 'SRV-DOCKER-PROD'}
-            when {
-                branch 'test'
-            }
-            steps {
-                docker.image("netboot/cookbook:${env.BUILD_ID}").run('-p 80:80 --name cookbook')
-            }
-        }
-    }
-    post {
-        always {
-            echo 'One way or another, I have finished'
-            deleteDir() /* clean up our workspace */
+        stage('Remove local images') {
+            // remove docker images
+            sh("docker rmi -f netboot/cookbook:latest || :")
+            sh("docker rmi -f netboot/cookbook:${env.BUILD_ID} || :")
+            sh("docker rmi -f squidfunk/mkdocs-material || :")
         }
     }
 }
