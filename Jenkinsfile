@@ -61,6 +61,19 @@ pipeline {
                 }
             }
         }
+        stage('Cleanup') {
+            agent { label 'SRV-DOCKER-PROD' }
+            steps {
+                script {
+                    sh("docker rmi -f squidfunk/mkdocs-material:latest || :")
+                    sh("docker rmi -f netboot/cookbook:${env.BUILD_NUMBER} || :")
+                    sh("docker rmi -f netboot/cookbook:dev || :")
+                    sh("docker rmi -f netboot/cookbook:latest || :")
+                    deleteDir()
+                    cleanWs()
+                }
+            }
+        }
         stage('Start image') {
             parallel {
                 stage('Prod') {
@@ -84,16 +97,6 @@ pipeline {
                             app.run('--name cookbook-dev --network web --label traefik.frontend.rule=Host:cookbook-dev.netboot.fr')
                         }
                     }
-                }
-            }
-        }
-        stage('Cleanup') {
-            agent { label 'SRV-DOCKER-PROD' }
-            steps {
-                script {
-                    sh("docker rmi -f squidfunk/mkdocs-material:latest || :")
-                    deleteDir()
-                    cleanWs()
                 }
             }
         }
