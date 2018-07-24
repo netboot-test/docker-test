@@ -17,7 +17,6 @@ pipeline {
                 docker {
                     image "squidfunk/mkdocs-material"
                     label "docker"
-                    args "--entrypoint=''"
                 }
             }
             steps {
