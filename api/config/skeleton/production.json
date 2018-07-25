@@ -1,0 +1,19 @@
+{
+  "SERVICES":[
+    {
+      "base_path": "/v1.0/",
+      "file": "api.yaml",
+      "validate_responses": false
+    }
+  ],
+  "FLASK":{
+    "ENV": "Production",
+    "HOST": "0.0.0.0",
+    "PORT": 8080,
+    "DEBUG": false,
+    "SQLALCHEMY_ECHO": false,
+    "SQLALCHEMY_TRACK_MODIFICATIONS": false,
+    "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:",
+    "VALIDATE_RESPONSES": true
+  }
+}
