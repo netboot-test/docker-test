@@ -18,19 +18,19 @@ pipeline {
                 }
             }
         }
-       stage('clean'){
-            steps {
-                script {
-                    sh 'tox -e clean'
-                }
-            }
-        }
         stage('Tests') {
             parallel{
-                stage('check'){
+                stage('flake8'){
                     steps {
-                        script {
-                            sh 'tox -e check'
+                        scr ipt {
+                            sh 'tox -e flake8'
+                        }
+                    }
+                }
+                stage('isort'){
+                    steps {
+                        scr ipt {
+                            sh 'tox -e isort'
                         }
                     }
                 }
