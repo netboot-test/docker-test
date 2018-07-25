@@ -41,7 +41,7 @@ class Factory:
         swagger_path = os.path.join(Factory.get_module_directory(), 'static', 'swagger-ui')
         spec_dir = os.path.join(Factory.get_module_directory(), 'swagger')
         if os.path.exists(swagger_path):
-            self.app = connexion.App(__name__, specification_dir=spec_dir, options={"swagger_path": swagger_path})
+            self.app = connexion.App(__name__, specification_dir=spec_dir, options={'swagger_path': swagger_path})
         else:
             self.app = connexion.App(__name__, specification_dir=spec_dir)
 
