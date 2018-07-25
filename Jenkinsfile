@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { 
+        docker {
             image 'python:3.7-alpine'
             label 'SRV-DOCKER-DEV'
         }
@@ -25,28 +25,26 @@ pipeline {
                 }
             }
         }
-        stage('run-parallel-branches') {
-            steps {
-                parallel(
-                    stage('check'){
-                        steps {
-                            script {
-                                sh 'tox -e check'
-                            }
+        stage('Tests') {
+            parallel{
+                stage('check'){
+                    steps {
+                        script {
+                            sh 'tox -e check'
                         }
                     }
-                    stage('cover'){
-                        steps {
-                            script {
-                                sh 'tox -e cover'
-                            }
+                }
+                stage('cover'){
+                    steps {
+                        script {
+                            sh 'tox -e cover'
                         }
                     }
-                    stage('coveralls'){
-                        steps {
-                            script {
-                                sh 'tox -e coveralls'
-                            }
+                }
+                stage('coveralls'){
+                    steps {
+                        script {
+                            sh 'tox -e coveralls'
                         }
                     }
                 }
