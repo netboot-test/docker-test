@@ -18,5 +18,39 @@ pipeline {
                 }
             }
         }
+       stage('clean'){
+            steps {
+                script {
+                    sh 'tox -e clean'
+                }
+            }
+        }
+        stage('run-parallel-branches') {
+            steps {
+                parallel(
+                    stage('check'){
+                        steps {
+                            script {
+                                sh 'tox -e check'
+                            }
+                        }
+                    }
+                    stage('cover'){
+                        steps {
+                            script {
+                                sh 'tox -e cover'
+                            }
+                        }
+                    }
+                    stage('coveralls'){
+                        steps {
+                            script {
+                                sh 'tox -e coveralls'
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
