@@ -16,6 +16,7 @@ pipeline {
                 script {
                     sh 'pip install --upgrade pip'
                     sh 'pip install tox'
+                    sh 'ls -lsa'
                 }
             }
         }
