@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'python:3.7-alpine'
+            image 'python:3.7'
             label 'SRV-DOCKER-DEV'
         }
     }
@@ -15,7 +15,6 @@ pipeline {
             steps {
                 script {
                     sh 'pip install tox'
-                    sh 'apt-get install git -y'
                 }
             }
         }
