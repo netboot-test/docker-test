@@ -20,21 +20,28 @@ pipeline {
                 }
             }
         }
-        stage('flake8'){
+        stage('Pytest'){
+            steps {
+                script {
+                    sh 'tox -e pytest'
+                }
+            }
+        }
+        stage('Flake8'){
             steps {
                 script {
                     sh 'tox -e flake8'
                 }
             }
         }
-        stage('isort'){
+        stage('Isort'){
             steps {
                 script {
                     sh 'tox -e isort'
                 }
             }
         }
-        stage('cover'){
+        stage('Cover'){
             steps {
                 script {
                     sh 'tox -e cover'
