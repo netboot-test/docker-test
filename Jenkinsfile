@@ -22,14 +22,14 @@ pipeline {
             parallel{
                 stage('flake8'){
                     steps {
-                        scr ipt {
+                        script {
                             sh 'tox -e flake8'
                         }
                     }
                 }
                 stage('isort'){
                     steps {
-                        scr ipt {
+                        script {
                             sh 'tox -e isort'
                         }
                     }
