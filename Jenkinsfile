@@ -33,13 +33,6 @@ pipeline {
                         }
                     }
                 }
-                stage('cover'){
-                    steps {
-                        script {
-                            sh 'tox -e cover'
-                        }
-                    }
-                }
                 stage('coveralls'){
                     steps {
                         script {
@@ -47,6 +40,14 @@ pipeline {
                         }
                     }
                 }
+                stage('cover'){
+                    steps {
+                        script {
+                            sh 'tox -e cover'
+                        }
+                    }
+                }
+
 
     }
 }
