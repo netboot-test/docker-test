@@ -1,11 +1,8 @@
-# .coveragerc to control coverage.py
+# .coveragerc to control coverage
 [run]
-branch = False
-
+show_missing = True
 source = api
 omit = /*/tests/*
 
 [report]
-
-[html]
-directory = htmlcov
+fail_under  = 50
