@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'python:3.7-alpine'
+            image 'younata/tox'
             label 'SRV-DOCKER-DEV'
         }
     }
