@@ -14,13 +14,7 @@ pipeline {
                 }
             }
         }
-        stage('Pytest'){
-            steps {
-                script {
-                    sh 'tox -e pytest'
-                }
-            }
-        }
+
         stage('Flake8'){
             steps {
                 script {
