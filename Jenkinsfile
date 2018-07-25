@@ -6,9 +6,9 @@ pipeline {
         }
     }
     stages {
-        stage('Test') {
+        stage('Checkout'){
             steps {
-                sh 'python --version'
+                checkout scm
             }
         }
     }
