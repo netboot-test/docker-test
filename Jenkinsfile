@@ -17,28 +17,28 @@ pipeline {
         stage('Pytest'){
             steps {
                 script {
-                    sh 'python36 tox -e pytest'
+                    sh 'tox -e pytest'
                 }
             }
         }
         stage('Flake8'){
             steps {
                 script {
-                    sh 'python36 tox -e flake8'
+                    sh 'tox -e flake8'
                 }
             }
         }
         stage('Isort'){
             steps {
                 script {
-                    sh 'python36 tox -e isort'
+                    sh 'tox -e isort'
                 }
             }
         }
         stage('Cover'){
             steps {
                 script {
-                    sh 'python36 tox -e cover'
+                    sh 'tox -e cover'
                 }
             }
         }
