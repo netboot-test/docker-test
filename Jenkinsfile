@@ -20,13 +20,7 @@ pipeline {
                 }
             }
         }
-        stage('Pytest'){
-            steps {
-                script {
-                    sh 'tox -e pytest'
-                }
-            }
-        }
+
         stage('Flake8'){
             steps {
                 script {
@@ -41,15 +35,9 @@ pipeline {
                 }
             }
         }
-        stage('Cover'){
-            steps {
-                script {
-                    sh 'tox -e cover'
-                }
-            }
-        }
+
         stage ('Code Analysis') {
-            agent { label 'SRV-DOCKER-PROD' }
+            agent { label 'SRV-DOCKER-DEV' }
             steps {
                 script {
                     // SonarQube Scanner Config
