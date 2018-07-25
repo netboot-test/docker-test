@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'rail/python-test-runner'
+            image 'python:3.7-alpine'
             label 'SRV-DOCKER-DEV'
         }
     }
