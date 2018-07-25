@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.7-alpine'
-            label 'SRV-DOCKER-DEV'
-        }
-    }
+    agent { label 'SRV-DOCKER-DEV' }
     stages {
         stage('Checkout'){
             steps {
@@ -14,28 +9,39 @@ pipeline {
         stage('Init'){
             steps {
                 script {
-                    sh 'pip install --upgrade pip'
-                    sh 'pip install tox'
-                    sh 'ls -lsa'
+                    sh 'pip3.6 install --upgrade pip'
+                    sh 'pip3.6 install tox'
                 }
             }
         }
-
+        stage('Pytest'){
+            steps {
+                script {
+                    sh 'python36 tox -e pytest'
+                }
+            }
+        }
         stage('Flake8'){
             steps {
                 script {
-                    sh 'tox -e flake8'
+                    sh 'python36 tox -e flake8'
                 }
             }
         }
         stage('Isort'){
             steps {
                 script {
-                    sh 'tox -e isort'
+                    sh 'python36 tox -e isort'
                 }
             }
         }
-
+        stage('Cover'){
+            steps {
+                script {
+                    sh 'python36 tox -e cover'
+                }
+            }
+        }
         stage ('Code Analysis') {
             agent { label 'SRV-DOCKER-DEV' }
             steps {
