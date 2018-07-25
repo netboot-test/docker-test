@@ -14,7 +14,7 @@ pipeline {
         stage('Init'){
             steps {
                 script {
-                    sh 'pip install tox
+                    sh 'pip install tox'
                 }
             }
         }
