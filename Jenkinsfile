@@ -20,13 +20,6 @@ pipeline {
                 }
             }
         }
-        stage('tox'){
-            steps {
-                script {
-                    sh 'tox'
-                }
-            }
-        }
         stage('flake8'){
             steps {
                 script {
