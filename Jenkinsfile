@@ -11,5 +11,10 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Init'){
+            steps {
+                sh 'pip install tox
+            }
+        }
     }
 }
