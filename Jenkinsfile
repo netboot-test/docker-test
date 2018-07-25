@@ -14,7 +14,15 @@ pipeline {
         stage('Init'){
             steps {
                 script {
+                    sh 'pip install --upgrade pip'
                     sh 'pip install tox'
+                }
+            }
+        }
+        stage('tox'){
+            steps {
+                script {
+                    sh 'tox'
                 }
             }
         }
