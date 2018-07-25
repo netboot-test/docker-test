@@ -18,8 +18,7 @@ pipeline {
                 }
             }
         }
-        stage('Tests') {
-            parallel{
+
                 stage('flake8'){
                     steps {
                         script {
@@ -48,7 +47,6 @@ pipeline {
                         }
                     }
                 }
-            }
-        }
+
     }
 }
