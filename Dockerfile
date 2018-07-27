@@ -8,7 +8,7 @@ LABEL MAINTAINER="Contact@thomas-illiet.fr"
 ADD . /code
 RUN pip install -r /code/requirements.txt
 
-WORKDIR /code/beapi
+WORKDIR /code
 VOLUME /code
 
-ENTRYPOINT bash -c "python manage.py runserver"
+ENTRYPOINT bash -c "python -m beapi runserver"
