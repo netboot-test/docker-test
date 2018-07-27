@@ -14,13 +14,13 @@ pipeline {
                 }
             }
         }
-        stage('Pylint'){
-            steps {
-                script {
-                    sh 'tox -e pylint'
-                }
-            }
-        }
+        //stage('Pylint'){
+        //    steps {
+        //        script {
+        //            sh 'tox -e pylint'
+        //        }
+        //    }
+        //}
         stage('Isort'){
             steps {
                 script {
