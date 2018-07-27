@@ -46,6 +46,14 @@ pipeline {
                 }
             }
         }
-
+        stage('Build Image') {
+            agent { label 'SRV-DOCKER-DEV' }
+            steps {
+                echo 'Starting to build docker image'
+                script {
+                    app = docker.build("netboot/beapi:${env.BUILD_ID}")
+                }
+            }
+        }
     }
 }
