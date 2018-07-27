@@ -11,4 +11,4 @@ RUN pip install -r /code/requirements.txt
 WORKDIR /code
 VOLUME /code
 
-ENTRYPOINT bash -c "python -m beapi runserver"
+ENTRYPOINT bash -c "python -m beapi run"
