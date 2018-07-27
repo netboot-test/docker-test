@@ -76,7 +76,7 @@ pipeline {
                     sh('docker rm beapi || true')
                     sh('docker rmi netboot/beapi:latest --force')
                     app = docker.image("netboot/beapi:latest")
-                    app.run('--name beapi --network web --label traefik.frontend.rule=Host:api.netboot.fr -label traefik.port=8080')
+                    app.run('--name beapi --network web --label traefik.frontend.rule=Host:api.netboot.fr --label traefik.port=8080')
                 }
             }
         }
