@@ -55,5 +55,40 @@ pipeline {
                 }
             }
         }
+        stage('Push Image') {
+            agent { label 'SRV-DOCKER-DEV' }
+            when { branch 'master' }
+            steps {
+                echo 'Push Image'
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'ca19e01b-db1a-43a3-adc4-46dafe13fea2') {
+                        app.push("latest")
+                    }
+                }
+            }
+        }
+        stage('Start Image') {
+            agent { label 'SRV-DOCKER-PROD' }
+            when { branch 'master' }
+            steps {
+                script {
+                    sh('docker stop beapi || true')
+                    sh('docker rm beapi || true')
+                    sh('docker rmi netboot/beapi:latest --force')
+                    app = docker.image("netboot/beapi:latest")
+                    app.run('--name beapi --network web --label traefik.frontend.rule=Host:api.netboot.fr')
+                }
+            }
+        }
+        stage('Cleanup') {
+            agent {label 'SRV-DOCKER-DEV'}
+            steps {
+                script {
+                    sh("docker rmi -f squidfunk/mkdocs-material:latest || :")
+                    deleteDir()
+                    cleanWs()
+                }
+            }
+        }
     }
 }
