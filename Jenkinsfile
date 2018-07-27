@@ -41,8 +41,7 @@ pipeline {
                     def scannerHome = tool 'SonarRunner'
                     def projectKey  = "-Dsonar.projectKey=Netboot_BeAPI"
                     def sources     = "-Dsonar.sources=./beapi"
-                    def language    = "-Dsonar.language=python"
-                    def SONAR_SCANNER_OPTS = projectKey + " " + sources + " " + language
+                    def SONAR_SCANNER_OPTS = projectKey + " " + sources
 
                     withSonarQubeEnv('Netboot') {
                         env.SQ_HOSTNAME = SONAR_HOST_URL;
