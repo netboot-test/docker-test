@@ -18,7 +18,7 @@ pipeline {
         stage('pytest'){
             steps {
                 script {
-                    sh 'tox -e pytest'
+                    sh 'tox'
                 }
             }
         }
