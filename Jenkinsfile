@@ -15,31 +15,10 @@ pipeline {
             }
         }
 
-        stage('pytest'){
+        stage('Tox'){
             steps {
                 script {
                     sh 'tox'
-                }
-            }
-        }
-        stage('coverage'){
-            steps {
-                script {
-                    sh 'tox -e coverage'
-                }
-            }
-        }
-        stage('plint'){
-            steps {
-                script {
-                    sh 'tox -e plint'
-                }
-            }
-        }
-        stage('flake8'){
-            steps {
-                script {
-                    sh 'tox -e flake8'
                 }
             }
         }
