@@ -39,7 +39,7 @@ paths:
     get:
       summary: 'Get helloworld message'
       operationId: 'get_message'
-      x-swagger-router-controller: "api.api.controllers.helloworld_controller"
+      x-swagger-router-controller: "beapi.api.controllers.helloworld_controller"
       responses:
         200:
           description: 'OK'

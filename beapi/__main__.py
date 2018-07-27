@@ -1,6 +1,5 @@
+from beapi import factory
 from flask_script import Manager
-
-from api import factory
 
 """ Store factory instance """
 flask_app = factory.app.app

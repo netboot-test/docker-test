@@ -16,7 +16,7 @@ setup(
         'Flask-Script'
     ],
     tests_require=['tox'],
-    package_dir={'api': 'api'},
+    package_dir={'beapi': 'beapi'},
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',

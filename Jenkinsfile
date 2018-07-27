@@ -15,24 +15,31 @@ pipeline {
             }
         }
 
-        stage('Flake8'){
+        stage('pytest'){
+            steps {
+                script {
+                    sh 'tox -e pytest'
+                }
+            }
+        }
+        stage('coverage'){
+            steps {
+                script {
+                    sh 'tox -e coverage'
+                }
+            }
+        }
+        stage('plint'){
+            steps {
+                script {
+                    sh 'tox -e plint'
+                }
+            }
+        }
+        stage('flake8'){
             steps {
                 script {
                     sh 'tox -e flake8'
-                }
-            }
-        }
-        stage('Isort'){
-            steps {
-                script {
-                    sh 'tox -e isort'
-                }
-            }
-        }
-        stage('Cover'){
-            steps {
-                script {
-                    sh 'tox -e cover'
                 }
             }
         }
