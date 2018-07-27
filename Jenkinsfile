@@ -57,7 +57,7 @@ pipeline {
             steps {
                 echo 'Starting to build docker image'
                 script {
-                    app = docker.build("netboot/beapi:latest}")
+                    app = docker.build("netboot/beapi:${env.BUILD_ID}")
                 }
             }
         }
@@ -90,6 +90,7 @@ pipeline {
             agent {label 'SRV-DOCKER-DEV'}
             steps {
                 script {
+                    sh("docker rmi -f netboot/beapi:${env.BUILD_ID} || :")
                     deleteDir()
                     cleanWs()
                 }
