@@ -17,9 +17,10 @@ class Factory:
         """ Return module directory """
         return os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-    def get_config_directory(self) -> str:
+    @staticmethod
+    def get_config_directory() -> str:
         """ Return configuration directory """
-        return os.path.join(self.get_module_directory(), 'config')
+        return os.path.join(Factory.get_module_directory(), 'config')
 
     def load_configuration(self) -> None:
         try:
@@ -40,7 +41,7 @@ class Factory:
         swagger_path = os.path.join(Factory.get_module_directory(), 'static', 'swagger-ui')
         spec_dir = os.path.join(Factory.get_module_directory(), 'swagger')
         if os.path.exists(swagger_path):
-            self.app = connexion.App(__name__, specification_dir=spec_dir, options={"swagger_path": swagger_path})
+            self.app = connexion.App(__name__, specification_dir=spec_dir, options={'swagger_path': swagger_path})
         else:
             self.app = connexion.App(__name__, specification_dir=spec_dir)
 

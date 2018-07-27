@@ -1,0 +1,78 @@
+---
+swagger: '2.0'
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# + Swagger Information
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+info:
+  version: "1.0"
+  title: 'Api Netboot'
+  description: "My personal API to manage everything"
+  contact:
+    name: "Thomas ILLIET"
+    email: "contact@netboot.fr"
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# + Swagger Configuration
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+basePath: '/v1.0'
+schemes:
+  - "http"
+  - "https"
+consumes:
+  - application/json
+produces:
+  - application/json
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# + Tags
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# + Paths supported by the server application
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+paths:
+  # +++++++++++++++++++++++++++++
+  # + /helloworld
+  # +++++++++++++++++++++++++++++
+  /helloworld:
+    get:
+      summary: 'Get helloworld message'
+      operationId: 'get_message'
+      x-swagger-router-controller: "beapi.api.controllers.helloworld_controller"
+      responses:
+        200:
+          description: 'OK'
+        204:
+          description: 'No Content'
+        500:
+          description: 'Unexpected error'
+          schema:
+            $ref: '#/definitions/model_error'
+
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# + Definitions
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+definitions:
+
+  # +++++++++++++++++++++++++++++
+  # + Resources
+  # +++++++++++++++++++++++++++++
+
+  # +++++++++++++++++++++++++++++
+  # + Model
+  # +++++++++++++++++++++++++++++
+  model_error:
+    type: object
+    required:
+    - 'code'
+    - 'message'
+    properties:
+      code:
+        type: integer
+        description: The http status code
+        minimum: 400
+        maximum: 599
+      message:
+        type: string

@@ -1,5 +1,5 @@
 # Pull base image.
-FROM python:3.7
+FROM python:3.5.2
 
 # File Author / Maintainer
 LABEL MAINTAINER="Contact@thomas-illiet.fr"
